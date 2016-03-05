@@ -8,15 +8,15 @@ def run():
 	channel = implementations.insecure_channel('localhost', 2000)
 	stub = test_pb2.beta_create_Address_stub(channel)
 	person = test_pb2.Person()
-	person.id = 1234
-	person.name = "Harsh Vardhan"
-	person.email = "harsh@vardhan.com"
+	person.id = int(raw_input("Enter your ID: "))
+	person.name = raw_input("Enter your name: ")
+	person.email = raw_input("Enter your email: ")
 	phone = person.phone.add()
-	phone.number = "888-888-888"
+	phone.number = raw_input("Enter your phone-number: ")
 	phone.type = test_pb2.Person.HOME
 	response = stub.get_addrs(test_pb2.Person(name=person.name), _TIMEOUT_SECONDS)
 	print "Test: " + response.person
-	print phone
+	print person
 
 
 if __name__ == '__main__':
