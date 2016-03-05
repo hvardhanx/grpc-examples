@@ -2,10 +2,12 @@
 syntax = "proto3";
 package test;
 
+// Address service definition
 service Address {
 	rpc get_addrs (Person) returns (AddressBook) {}	
 }
 
+// The request message
 message Person {
 	string name = 1;
 	int32 id = 2;
@@ -25,6 +27,7 @@ message Person {
 	repeated PhoneNumber phone = 4;
 }
 
+// The response message
 message AddressBook {
 	string person = 1;
 }
