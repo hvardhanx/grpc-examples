@@ -1,0 +1,19 @@
+
+syntax = "proto3";
+
+package crawl;
+
+// service to crawl the web 
+service Crawl {
+	rpc GetData (StockName) returns (StockPrice) {} 
+}
+
+// The request message from client
+message StockName {
+	string name = 1;
+}
+
+// The response message from server
+message StockPrice {
+	string result = 1;
+}
