@@ -1,8 +1,8 @@
 
 from grpc.beta import implementations
-import re
+
 import crawl_pb2
-from six.moves import urllib
+
 _TIMEOUT_SECONDS = 5
 
 
