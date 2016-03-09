@@ -3,6 +3,7 @@ import time
 import re
 import crawl_pb2
 from six.moves import urllib
+from grpc.beta import implementations
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
@@ -36,15 +37,17 @@ class Crawl(crawl_pb2.BetaCrawlServicer):
 
 
 def serve():
-    server = crawl_pb2.beta_create_Crawl_server(Crawl())
-    server.add_insecure_port('[::]:8000')
-    server.start()
-    try:
-        while True:
-            time.sleep(_ONE_DAY_IN_SECONDS)
-    except KeyboardInterrupt:
-        server.stop(0)
+	priv = [(open('../../../key.pem').read(), open('../../../cert.pem').read())]
+	creds = implementations.ssl_server_credentials(priv, None, False)
+	server = crawl_pb2.beta_create_Crawl_server(Crawl())
+	server.add_secure_port('[::]:8000', creds)
+	server.start()
+	try:
+		while True:
+			time.sleep(_ONE_DAY_IN_SECONDS)
+	except KeyboardInterrupt:
+		server.stop(0)
 
 
 if __name__ == '__main__':
-    serve()
+	serve()
