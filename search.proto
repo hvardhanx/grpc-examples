@@ -1,0 +1,17 @@
+
+syntax = "proto3";
+
+service Google {
+	// A server-to-client streaming RPC.
+	rpc Search(Request) returns (stream Results) {}
+}
+
+message Request {
+	string query = 1;
+}
+
+message Results {
+	string title = 1;
+	string url = 2;
+	string content = 3;
+}
